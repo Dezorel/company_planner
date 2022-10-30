@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func Process(bindAddr string) {
+func ApiProcess(bindAddr string) {
 
 	http.HandleFunc("/api", models.Response)
 

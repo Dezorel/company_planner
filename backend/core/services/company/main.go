@@ -2,6 +2,11 @@ package main
 
 import "company/app/controllers"
 
+const CONFIG_PATH = "./config/config.yaml"
+
 func main() {
-	controllers.Process("13070")
+
+	config := controllers.ConfigProcess(CONFIG_PATH)
+
+	controllers.ApiProcess(config.Service.Port)
 }

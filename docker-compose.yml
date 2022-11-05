@@ -1,0 +1,11 @@
+version: "3.2"
+
+services:
+  database:
+    build: ./backend/db
+    ports:
+      - "5432:5432"
+  company:
+    build: ./backend/core/services/company
+    ports:
+      - "13070:13070"

@@ -9,6 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: 'rootpass'
       MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
       MYSQL_RANDOM_ROOT_PASSWORD: 'no'
+      MYSQL_DATABASE: 'Company_planner'
   company:
     build: ./backend/core/services/company
     ports:

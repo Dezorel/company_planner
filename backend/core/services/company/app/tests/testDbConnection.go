@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	db, err := sql.Open("mysql", "root:rootpass@tcp(database:3306)/information_schema")
+	db, err := sql.Open("mysql", "dezorel:dezorelpass@tcp(database:3306)/information_schema")
 
 	if err != nil {
 		panic(err)
@@ -24,16 +24,16 @@ func main() {
 
 	selectVariable, err := db.Query("SELECT NOW()")
 
-	total := 0
+	result := ""
 
 	if err != nil {
 		panic(err)
 	}
 
 	for selectVariable.Next() {
-		selectVariable.Scan(&total)
+		selectVariable.Scan(&result)
 
-		fmt.Println(total)
+		fmt.Println(result)
 	}
 
 	selectVariable.Close()

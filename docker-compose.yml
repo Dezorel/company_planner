@@ -2,13 +2,15 @@ version: "3.2"
 
 services:
   database:
-    image: mysql:8.0.21
+    image: mysql:5.7
     ports:
       - "3303:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: 'rootpass'
+      MYSQL_ROOT_PASSWORD: 'wiuerhywieurwuier'
       MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
-      MYSQL_RANDOM_ROOT_PASSWORD: 'no'
+      MYSQL_RANDOM_ROOT_PASSWORD:  'no'
+      MYSQL_USER: 'dezorel'
+      MYSQL_PASSWORD: 'dezorelpass'
       MYSQL_DATABASE: 'Company_planner'
   company:
     build: ./backend/core/services/company

@@ -7,6 +7,7 @@ import (
 
 type Company struct {
 	Name string `json:"name"`
+	Date string `json:"datetime"`
 }
 
 type ErrorResponse struct {
@@ -16,8 +17,17 @@ type ErrorResponse struct {
 
 func Response(w http.ResponseWriter, r *http.Request) {
 
+	db := DBConnect()
+
+	defer db.Close()
+
+	query := "SELECT NOW()"
+
+	resultQuery := DBQueryRow(db, query)
+
 	company := Company{
 		Name: "UTM",
+		Date: resultQuery.Result,
 	}
 
 	response, _ := json.Marshal(ErrorResponse{

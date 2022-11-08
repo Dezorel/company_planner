@@ -5,9 +5,9 @@ import (
 	"net/http"
 )
 
-func ApiProcess(bindAddr string) {
+func ApiProcess() {
 
 	http.HandleFunc("/api", models.Response)
 
-	http.ListenAndServe(":"+bindAddr, nil)
+	http.ListenAndServe(":"+models.ConfigProcess().ServiceConfig.Port, nil)
 }

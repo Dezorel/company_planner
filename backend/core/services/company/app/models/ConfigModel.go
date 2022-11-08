@@ -6,12 +6,23 @@ import (
 	"os"
 )
 
-type Service struct {
+const CONFIG_PATH = "./config/config.yaml"
+
+type ServiceConfig struct {
 	Port string `yaml:"port"`
 }
 
+type DatabaseConfig struct {
+	User     string `yaml:"user"`
+	Password string `yaml:"pass"`
+	IP       string `yaml:"ip"`
+	Port     string `yaml:"port"`
+	DB       string `yaml:"db"`
+}
+
 type Config struct {
-	Service `yaml:"service"`
+	ServiceConfig  `yaml:"service"`
+	DatabaseConfig `yaml:"database"`
 }
 
 func ReadConfigFile(cfg *Config, configPath string) {
@@ -31,4 +42,13 @@ func ReadConfigFile(cfg *Config, configPath string) {
 func processError(err error) {
 	fmt.Println(err)
 	os.Exit(2)
+}
+
+func ConfigProcess() Config {
+
+	var config Config
+
+	ReadConfigFile(&config, CONFIG_PATH)
+
+	return config
 }

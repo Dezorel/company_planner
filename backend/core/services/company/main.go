@@ -1,12 +1,10 @@
 package main
 
-import "company/app/controllers"
-
-const CONFIG_PATH = "./config/config.yaml"
+import (
+	"company/app/controllers"
+)
 
 func main() {
 
-	config := controllers.ConfigProcess(CONFIG_PATH)
-
-	controllers.ApiProcess(config.Service.Port)
+	controllers.ApiProcess()
 }

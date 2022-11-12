@@ -1,10 +1,10 @@
 FROM golang:alpine
 
 #путь к папке внутри образа
-WORKDIR /app/services/company
+WORKDIR /app/company-service
 
 #путь откуда - куда скопировать
-COPY . /app/services/company
+COPY . /app/company-service
 
 # подкачиваем необходимые пакеты
 RUN go get "gopkg.in/yaml.v3"

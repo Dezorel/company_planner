@@ -29,3 +29,7 @@ function showCalendar() {
   document.getElementById("cabinet").setAttribute("style", "display: none");
   document.getElementById("calendar").setAttribute("style", "display: block");
 }
+function showPage2() {
+  document.getElementById("page1").setAttribute("style", "display: none");
+  document.getElementById("page2").setAttribute("style", "display: block");
+}

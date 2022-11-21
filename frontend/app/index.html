@@ -24,8 +24,8 @@
 </head>
 <body>
    <!--first page-->
-   <div class=" w-50 container" style="display:none;">
-      <form action="POST" class="row justify-content-center" style="background: rgba(201, 193, 170, 0.9);">
+   <div class=" w-50 container" id="page1">
+      <form action="#" class="row justify-content-center" style="background: rgba(201, 193, 170, 0.9);">
          <div class="row justify-content-center">
             <div class="col-auto">
                <h2>Company planer</h2>
@@ -38,7 +38,7 @@
          </div> 
          <div class="row justify-content-center mb-3">
             <div class="col-auto">
-               <button class="btn btn-primary" type="submit">Search</button>
+               <button class="btn btn-primary" type="submit" onclick="showPage2()">Search</button>
             </div>
             <div class="col-auto">
                <button class="btn btn-primary" type="submit">Create</button>
@@ -48,8 +48,8 @@
 
    </div>
 
-
-   <div class="container user__cabinet mt-3" style="display: block;">
+   <!--second page-->
+   <div class="container user__cabinet mt-3" id="page2" style="display: none;">
       <div class="row justify-content-center pt-4 pb-4" style="background: rgba(201, 193, 170, 0.9);">
          <div class="col-3">
             <button type="button" class="btn btn-success w-50 mb-3" onclick="showCabinet()">Cabinets</button>
@@ -58,7 +58,7 @@
          <div class="col">
             <div class="container">
                
-               <div id='calendar' id="calendar"></div>
+               <div id='calendar' style="display: none;"></div>
 
                <div id="cabinet">
                   <!-- форма для заполнения календаря -->

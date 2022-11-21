@@ -49,7 +49,7 @@
    </div>
 
    <!--second page-->
-   <div class="container user__cabinet mt-3" id="page2" style="display: none;">
+   <div class="container user__cabinet mt-3" id="page2" style="display: block;">
       <div class="row justify-content-center pt-4 pb-4" style="background: rgba(201, 193, 170, 0.9); height: 95vh;">
          <div class="col-3">
             <button type="button" class="btn btn-success w-50 mb-3" onclick="showCabinet()">Cabinets</button>
@@ -58,9 +58,9 @@
          <div class="col">
             <div class="container">
                
-               <div id='calendar' style="display: none; height: 95vh;"></div>
+               <div id='calendar' style="height: 95vh;"></div>
 
-               <div id="cabinet" style="height: 95vh;">
+               <div id="cabinet" style="display: block; height: 95vh;">
                   <!-- форма для заполнения календаря -->
                   <form action="#">
                      <div class="dropdown">
@@ -77,7 +77,7 @@
                </div>
 
                <!-- форма для создания кабинетов -->
-               <form class="form w-50" style="display:none ;">
+               <form class="form w-50" style="display:none;">
                   <input type="text" name="cab_number" id="">
                   <select class="form-select" aria-label=".form-select-sm example">
                      <option selected>Open this select menu</option>

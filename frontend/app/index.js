@@ -19,4 +19,13 @@ function myFunction() {
       }
     }
   }
-     
+// показать скрыть кабинет
+function showCabinet() {
+  document.getElementById("calendar").setAttribute("style", "display: none");
+  document.getElementById("cabinet").setAttribute("style", "display: block");
+}
+// показать скрыть календарь
+function showCalendar() {
+  document.getElementById("cabinet").setAttribute("style", "display: none");
+  document.getElementById("calendar").setAttribute("style", "display: block");
+}

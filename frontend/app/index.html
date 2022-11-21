@@ -52,13 +52,31 @@
    <div class="container user__cabinet mt-3" style="display: block;">
       <div class="row justify-content-center pt-4 pb-4" style="background: rgba(201, 193, 170, 0.9);">
          <div class="col-3">
-            <button type="button" class="btn btn-success w-50 mb-3" style="display: block;">Cabinets</button>
-            <button type="button" class="btn btn-success w-50" style="display: block;">Calendar</button>
+            <button type="button" class="btn btn-success w-50 mb-3" onclick="showCabinet()">Cabinets</button>
+            <button type="button" class="btn btn-success w-50" onclick="showCalendar()">Calendar</button>
          </div>
          <div class="col">
             <div class="container">
-               <div id='calendar' class="display"></div>
-               <!-- для кабинетов формочка -->
+               
+               <div id='calendar' id="calendar"></div>
+
+               <div id="cabinet">
+                  <!-- форма для заполнения календаря -->
+                  <form action="#">
+                     <div class="dropdown">
+                        <button onclick="myFunction()" class="dropbtn">Cabinets</button>
+                        <div id="myDropdown" class="dropdown-content">
+                          <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                          <a href="#416">416</a>
+                          <a href="#416">393</a>
+                          <a href="#416">202</a>
+                          <a href="#416">101</a>
+                        </div>
+                      </div>
+                  </form>
+               </div>
+
+               <!-- форма для создания кабинетов -->
                <form class="form w-50" style="display:none ;">
                   <input type="text" name="cab_number" id="">
                   <select class="form-select" aria-label=".form-select-sm example">
@@ -81,17 +99,7 @@
                    </div>
                    <button type="button" class="btn btn-primary">Create</button>
                </form>
-               <!-- для заполнения календаря -->
-               <form action="">
-                  <div class="dropdown">
-                     <button onclick="myFunction()" class="dropbtn">Cabinets</button>
-                     <div id="myDropdown" class="dropdown-content">
-                       <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-                       <a href="#about">About</a>
-                     </div>
-                   </div>
-                   
-               </form>
+
          </div>
       </div>
    </div>

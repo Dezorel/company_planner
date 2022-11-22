@@ -51,6 +51,7 @@ CREATE TABLE `Cabinets_schedule`  (
                               `date_time_start` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
                               `date_time_end` timestamp(0) NULL DEFAULT NULL,
                               INDEX `cabinet_id`(`cabinet_id`) USING BTREE
+                              CONSTRAINT `cabinet_id` FOREIGN KEY (`cabinet_id`) REFERENCES `Cabinets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

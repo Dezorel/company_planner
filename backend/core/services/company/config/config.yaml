@@ -5,4 +5,4 @@ database:
   pass: "dezorelpass"
   ip: "database"
   port: 3306
-  db: "information_schema"
+  db: "Company_planner"

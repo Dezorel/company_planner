@@ -7,9 +7,7 @@ import (
 
 func ApiProcess() {
 
-	http.HandleFunc("/test", models.Response)
-
-	http.HandleFunc("/company", models.GetCompanyByName)
+	http.HandleFunc("/api", models.Response)
 
 	http.ListenAndServe(":"+models.ConfigProcess().ServiceConfig.Port, nil)
 }

@@ -7,7 +7,6 @@ import (
 
 type Company struct {
 	Name string `json:"name"`
-	Date string `json:"datetime"`
 }
 
 type ErrorResponse struct {
@@ -17,17 +16,24 @@ type ErrorResponse struct {
 
 func Response(w http.ResponseWriter, r *http.Request) {
 
+	var requestCompany Company
+
 	db := DBConnect()
 
 	defer db.Close()
 
-	query := "SELECT NOW()"
+	err := json.NewDecoder(r.Body).Decode(&requestCompany)
 
-	resultQuery := DBQueryRow(db, query)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
-	company := Company{
-		Name: "UTM",
-		Date: resultQuery.Result,
+	company, err := GetCompanyByName(requestCompany.Name)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
 
 	response, _ := json.Marshal(ErrorResponse{
@@ -38,7 +44,6 @@ func Response(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 
 	case "GET":
-
 		response, _ = json.Marshal(company)
 
 	default:
@@ -52,41 +57,4 @@ func Response(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Write(response)
-}
-
-func GetCompanyByName(w http.ResponseWriter, r *http.Request) {
-
-	var company Company
-
-	err := json.NewDecoder(r.Body).Decode(&company)
-
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	db := DBConnect()
-
-	defer db.Close()
-
-	query := "SELECT 1 as result FROM `Companies` WHERE company_name = '" + company.Name + "'"
-
-	resultQuery := DBQueryRow(db, query)
-
-	if resultQuery.Result != "1" {
-		response, _ := json.Marshal(ErrorResponse{
-			Status:  http.StatusBadRequest,
-			Message: "Bad Request",
-		})
-
-		w.Write(response)
-
-	} else {
-		response, _ := json.Marshal(Company{
-			Name: company.Name,
-		})
-
-		w.Write(response)
-	}
-
 }

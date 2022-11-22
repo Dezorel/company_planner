@@ -25,14 +25,11 @@ func Response(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&requestCompany)
 
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	company, err := GetCompanyByName(requestCompany.Name)
-
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		response, _ := json.Marshal(ErrorResponse{
+			Status:  http.StatusBadRequest,
+			Message: err.Error(),
+		})
+		w.Write(response)
 		return
 	}
 
@@ -44,6 +41,17 @@ func Response(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 
 	case "GET":
+		company, err := GetCompanyByName(requestCompany.Name)
+
+		if err != nil {
+			response, _ := json.Marshal(ErrorResponse{
+				Status:  http.StatusBadRequest,
+				Message: err.Error(),
+			})
+			w.Write(response)
+			return
+		}
+
 		response, _ = json.Marshal(company)
 
 	default:

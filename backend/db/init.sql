@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXIST Company_planner;
+CREATE DATABASE IF NOT EXISTS Company_planner;
 
     -- ----------------------------
 -- Table structure for cabinet_size
@@ -10,6 +10,19 @@ CREATE TABLE `Cabinet_size`  (
                                  PRIMARY KEY (`id`) USING BTREE,
                                  INDEX `size`(`cabinet_size`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for company
+-- ----------------------------
+DROP TABLE IF EXISTS `Companies`;
+CREATE TABLE `Companies`  (
+                              `id` int(11) NOT NULL AUTO_INCREMENT,
+                              `company_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+                              `date_time_created` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+                              PRIMARY KEY (`id`) USING BTREE,
+                              INDEX `company_name`(`company_name`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
 
 -- ----------------------------
 -- Table structure for cabinets
@@ -30,18 +43,6 @@ CREATE TABLE `Cabinets` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for company
--- ----------------------------
-DROP TABLE IF EXISTS `Companies`;
-CREATE TABLE `Companies`  (
-                            `id` int(11) NOT NULL AUTO_INCREMENT,
-                            `company_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                            `date_time_created` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-                            PRIMARY KEY (`id`) USING BTREE,
-                            INDEX `company_name`(`company_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
 -- Table structure for cabinets schedule
 -- ----------------------------
 
@@ -50,8 +51,8 @@ CREATE TABLE `Cabinets_schedule`  (
                               `cabinet_id` int(11) NOT NULL,
                               `date_time_start` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
                               `date_time_end` timestamp(0) NULL DEFAULT NULL,
-                              INDEX `cabinet_id`(`cabinet_id`) USING BTREE
-                              CONSTRAINT `cabinet_id` FOREIGN KEY (`cabinet_id`) REFERENCES `Cabinets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                              INDEX `cabinet_id`(`cabinet_id`) USING BTREE,
+                              CONSTRAINT `cabinet_id` FOREIGN KEY (`cabinet_id`) REFERENCES `Cabinets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

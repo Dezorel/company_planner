@@ -22,9 +22,15 @@ services:
       timeout: 5s
       retries: 20
 
+  gateway:
+    build: ./backend/core/services/api-gw
+    ports:
+      - "13080:13080"
+    depends_on:
+      - database
   company:
     build: ./backend/core/services/company
     ports:
       - "13070:13070"
     depends_on:
-      - database
+      - gateway

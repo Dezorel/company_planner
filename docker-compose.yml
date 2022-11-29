@@ -31,9 +31,7 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "8080:8080"
-    depends_on:
-      - gateway
+      - "8080:80"
   company:
     build: ./backend/core/services/company
     ports:

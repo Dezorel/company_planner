@@ -38,3 +38,13 @@ func DBQueryRow(db *sql.DB, query string) DbSingleAnswer {
 
 	return answer
 }
+
+func DBQuery(db *sql.DB, query string) bool {
+	_, err := db.Query(query)
+
+	if err != nil {
+		return false
+	} else {
+		return true
+	}
+}

@@ -17,6 +17,14 @@ type CompanyRequest struct {
 	Name string `json:"name"`
 }
 
+type CabinetRequest struct {
+	Id       string `json:"id"`
+	Number   string `json:"number"`
+	Size     string `json:"size"`
+	Property string `json:"property"`
+	Company  string `json:"company"`
+}
+
 func ResponseCompany(w http.ResponseWriter, r *http.Request) {
 
 	companyUrl := ConfigProcess().CompanyConfig.CompanyUrl
@@ -37,6 +45,56 @@ func ResponseCompany(w http.ResponseWriter, r *http.Request) {
 	requestData := []byte(`{"name": "` + requestCompany.Name + `"}`)
 
 	request, _ := http.NewRequest(r.Method, companyUrl, bytes.NewBuffer(requestData))
+
+	request.Header.Set("Content-Type", "application/json; charset=UTF-8")
+
+	client := &http.Client{}
+	response, error := client.Do(request)
+	if error != nil {
+		response, _ := json.Marshal(ErrorResponse{
+			Status:  http.StatusBadRequest,
+			Message: "Bad request!",
+		})
+
+		w.Write(response)
+		return
+	}
+	defer response.Body.Close()
+
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	w.Write(body)
+}
+
+func ResponseCabinet(w http.ResponseWriter, r *http.Request) {
+
+	cabinetUrl := ConfigProcess().CabinetConfig.CabinetUrl
+
+	var requestCabinet CabinetRequest
+
+	err := json.NewDecoder(r.Body).Decode(&requestCabinet)
+
+	if err != nil {
+		response, _ := json.Marshal(ErrorResponse{
+			Status:  http.StatusBadRequest,
+			Message: err.Error(),
+		})
+		w.Write(response)
+		return
+	}
+
+	requestData := []byte(`{
+		"id": "` + requestCabinet.Id + `",
+		"number": "` + requestCabinet.Number + `",
+		"size": "` + requestCabinet.Size + `",
+		"property": "` + requestCabinet.Property + `",
+		"company": "` + requestCabinet.Company + `"
+	}`)
+
+	request, _ := http.NewRequest(r.Method, cabinetUrl, bytes.NewBuffer(requestData))
 
 	request.Header.Set("Content-Type", "application/json; charset=UTF-8")
 

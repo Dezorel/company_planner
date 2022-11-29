@@ -16,9 +16,14 @@ type CompanyConfig struct {
 	CompanyUrl string `yaml:"url"`
 }
 
+type CabinetConfig struct {
+	CabinetUrl string `yaml:"url"`
+}
+
 type Config struct {
 	ServiceConfig `yaml:"service"`
 	CompanyConfig `yaml:"company"`
+	CabinetConfig `yaml:"cabinet"`
 }
 
 func ReadConfigFile(cfg *Config, configPath string) {

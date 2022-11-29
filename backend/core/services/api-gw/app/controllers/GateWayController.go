@@ -6,7 +6,7 @@ import (
 )
 
 func GateWayProcess() {
-	http.HandleFunc("/api", models.Response)
+	http.HandleFunc("/api/company", models.ResponseCompany)
 
 	http.ListenAndServe(":"+models.ConfigProcess().ServiceConfig.Port, nil)
 }

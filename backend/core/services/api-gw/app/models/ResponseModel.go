@@ -1,11 +1,11 @@
 package models
 
 import (
+	"bytes"
 	"encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"net/url"
 )
 
 type ErrorResponse struct {
@@ -13,34 +13,30 @@ type ErrorResponse struct {
 	Message string `json:"message"`
 }
 
-func Response(w http.ResponseWriter, r *http.Request) {
+func ResponseCompany(w http.ResponseWriter, r *http.Request) {
 
-	resp, err := http.Get("http://127.0.0.1")
+	companyUrl := "http://company:13070/api"
 
-	switch r.Method {
-	case "GET":
-		resp, err = http.Get("https://jsonplaceholder.typicode.com/posts")
+	data := []byte(`{"name": "test"}`)
 
-	case "POST":
-		data := url.Values{"name": {"John Doe"}}
-		resp, err = http.PostForm("https://jsonplaceholder.typicode.com/posts", data)
+	request, _ := http.NewRequest(r.Method, companyUrl, bytes.NewBuffer(data))
 
-	default:
+	request.Header.Set("Content-Type", "application/json; charset=UTF-8")
+
+	client := &http.Client{}
+	response, error := client.Do(request)
+	if error != nil {
 		response, _ := json.Marshal(ErrorResponse{
 			Status:  http.StatusBadRequest,
-			Message: "Method not allowed!",
+			Message: "Bad request!",
 		})
 
 		w.Write(response)
-
 		return
 	}
+	defer response.Body.Close()
 
-	if err != nil {
-		log.Fatalln(err)
-	}
-	//We Read the response body on the line below.
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		log.Fatalln(err)
 	}

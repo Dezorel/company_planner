@@ -28,6 +28,12 @@ services:
       - "13080:13080"
     depends_on:
       - database
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - gateway
   company:
     build: ./backend/core/services/company
     ports:

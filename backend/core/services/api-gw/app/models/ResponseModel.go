@@ -13,13 +13,30 @@ type ErrorResponse struct {
 	Message string `json:"message"`
 }
 
+type CompanyRequest struct {
+	Name string `json:"name"`
+}
+
 func ResponseCompany(w http.ResponseWriter, r *http.Request) {
 
 	companyUrl := "http://company:13070/api"
 
-	data := []byte(`{"name": "test"}`)
+	var requestCompany CompanyRequest
 
-	request, _ := http.NewRequest(r.Method, companyUrl, bytes.NewBuffer(data))
+	err := json.NewDecoder(r.Body).Decode(&requestCompany)
+
+	if err != nil {
+		response, _ := json.Marshal(ErrorResponse{
+			Status:  http.StatusBadRequest,
+			Message: err.Error(),
+		})
+		w.Write(response)
+		return
+	}
+
+	requestData := []byte(`{"name": "` + requestCompany.Name + `"}`)
+
+	request, _ := http.NewRequest(r.Method, companyUrl, bytes.NewBuffer(requestData))
 
 	request.Header.Set("Content-Type", "application/json; charset=UTF-8")
 

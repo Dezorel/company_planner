@@ -20,3 +20,20 @@ func GetCompanyByName(companyName string) (Company, error) {
 
 	return Company{}, errors.New("Not found company!")
 }
+
+func CreateCompany(companyName string) (Company, error) {
+
+	db := DBConnect()
+
+	defer db.Close()
+
+	query := "INSERT INTO `Companies` (`company_name`) VALUES ('" + companyName + "')"
+
+	resultQuery := DBQuery(db, query)
+
+	if resultQuery == true {
+		return Company{Name: companyName}, nil
+	}
+
+	return Company{}, errors.New("Error on create company!")
+}

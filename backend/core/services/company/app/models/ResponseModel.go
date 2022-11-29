@@ -54,6 +54,19 @@ func Response(w http.ResponseWriter, r *http.Request) {
 
 		response, _ = json.Marshal(company)
 
+	case "POST":
+		company, err := CreateCompany(requestCompany.Name)
+
+		if err != nil {
+			response, _ := json.Marshal(ErrorResponse{
+				Status:  http.StatusBadRequest,
+				Message: err.Error(),
+			})
+			w.Write(response)
+			return
+		}
+
+		response, _ = json.Marshal(company)
 	default:
 
 		w.WriteHeader(http.StatusMethodNotAllowed)

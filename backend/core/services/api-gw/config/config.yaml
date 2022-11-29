@@ -1,2 +1,4 @@
 service:
   port: "13080"
+company:
+  url: "http://company:13070/api"

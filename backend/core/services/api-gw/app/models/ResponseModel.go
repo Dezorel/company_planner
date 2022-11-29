@@ -19,7 +19,7 @@ type CompanyRequest struct {
 
 func ResponseCompany(w http.ResponseWriter, r *http.Request) {
 
-	companyUrl := "http://company:13070/api"
+	companyUrl := ConfigProcess().CompanyConfig.CompanyUrl
 
 	var requestCompany CompanyRequest
 

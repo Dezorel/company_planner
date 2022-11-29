@@ -1,22 +1,12 @@
 package controllers
 
 import (
-	"io/ioutil"
-	"log"
+	"api-gw/app/models"
 	"net/http"
 )
 
 func GateWayProcess() {
-	resp, err := http.Get("https://jsonplaceholder.typicode.com/posts")
-	if err != nil {
-		log.Fatalln(err)
-	}
-	//We Read the response body on the line below.
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	//Convert the body to type string
-	sb := string(body)
-	log.Printf(sb)
+	http.HandleFunc("/api", models.Response)
+
+	http.ListenAndServe(":"+models.ConfigProcess().ServiceConfig.Port, nil)
 }

@@ -5,8 +5,12 @@ import (
 	"net/http"
 )
 
-type Company struct {
-	Name string `json:"name"`
+type Schedule struct {
+	CabinetId     string `json:"cabinet_id"`
+	CabinetNumber string `json:"cabinet_number"`
+	StartDate     string `json:"date_time_start"`
+	EndDate       string `json:"date_time_end"`
+	CompanyName   string `json:"company_name"`
 }
 
 type ErrorResponse struct {
@@ -16,13 +20,13 @@ type ErrorResponse struct {
 
 func Response(w http.ResponseWriter, r *http.Request) {
 
-	var requestCompany Company
+	var requestSchedule Schedule
 
 	db := DBConnect()
 
 	defer db.Close()
 
-	err := json.NewDecoder(r.Body).Decode(&requestCompany)
+	err := json.NewDecoder(r.Body).Decode(&requestSchedule)
 
 	if err != nil {
 		response, _ := json.Marshal(ErrorResponse{
@@ -41,21 +45,21 @@ func Response(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 
 	case "GET":
-		//company, err := GetCompanyByName(requestCompany.Name)
-		//
-		//if err != nil {
-		//	response, _ := json.Marshal(ErrorResponse{
-		//		Status:  http.StatusBadRequest,
-		//		Message: err.Error(),
-		//	})
-		//	w.Write(response)
-		//	return
-		//}
-		//
-		//response, _ = json.Marshal(company)
+		schedules, err := GetScheduleByCompanyId(requestSchedule.CompanyName)
+
+		if err != nil {
+			response, _ := json.Marshal(ErrorResponse{
+				Status:  http.StatusBadRequest,
+				Message: err.Error(),
+			})
+			w.Write(response)
+			return
+		}
+
+		response, _ = json.Marshal(schedules)
 
 	case "POST":
-		//company, err := CreateCompany(requestCompany.Name)
+		//schedules, err := CreateCompany(requestSchedule.Name)
 
 		//if err != nil {
 		//	response, _ := json.Marshal(ErrorResponse{
@@ -66,7 +70,7 @@ func Response(w http.ResponseWriter, r *http.Request) {
 		//	return
 		//}
 		//
-		//response, _ = json.Marshal(company)
+		//response, _ = json.Marshal(schedules)
 	default:
 
 		w.WriteHeader(http.StatusMethodNotAllowed)

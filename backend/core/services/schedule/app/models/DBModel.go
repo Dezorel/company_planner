@@ -48,3 +48,7 @@ func DBQuery(db *sql.DB, query string) bool {
 		return true
 	}
 }
+
+func DBQueryMultiRow(db *sql.DB, query string) (*sql.Rows, error) {
+	return db.Query(query)
+}

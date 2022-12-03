@@ -26,9 +26,11 @@ type CabinetRequest struct {
 }
 
 type ScheduleRequest struct {
-	CabinetId string `json:"cabinet_id"`
-	StartDate string `json:"date_time_start"`
-	EndDate   string `json:"date_time_end"`
+	CabinetId     string `json:"cabinet_id"`
+	CabinetNumber string `json:"cabinet_number"`
+	StartDate     string `json:"date_time_start"`
+	EndDate       string `json:"date_time_end"`
+	CompanyName   string `json:"company_name"`
 }
 
 func ResponseCompany(w http.ResponseWriter, r *http.Request) {
@@ -144,8 +146,10 @@ func ResponseSchedule(w http.ResponseWriter, r *http.Request) {
 
 	requestData := []byte(`{
 		"cabinet_id": "` + requestSchedule.CabinetId + `",
+		"cabinet_number": "` + requestSchedule.CabinetId + `",
 		"date_time_start": "` + requestSchedule.StartDate + `",
-		"date_time_end": "` + requestSchedule.EndDate + `"
+		"date_time_end": "` + requestSchedule.EndDate + `",
+		"company_name": "` + requestSchedule.CompanyName + `"
 	}`)
 
 	request, _ := http.NewRequest(r.Method, scheduleUrl, bytes.NewBuffer(requestData))

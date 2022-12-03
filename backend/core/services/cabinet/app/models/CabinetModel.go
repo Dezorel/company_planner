@@ -2,7 +2,6 @@ package models
 
 import (
 	"errors"
-	"fmt"
 	"strconv"
 )
 
@@ -39,8 +38,6 @@ func GetCabinetsByCompany(companyName string) ([]Cabinet, error) {
 			Property: specification,
 			Company:  companyName,
 		})
-
-		fmt.Println(strconv.Itoa(id), number, strconv.Itoa(sizeId), specification)
 	}
 
 	selectResult.Close()

@@ -51,19 +51,24 @@ func GetScheduleByCompanyId(companyName string) ([]Schedule, error) {
 	return answer, nil
 }
 
-func CreateSchedule(companyName string) (Schedule, error) {
+func CreateSchedule(startDate, endDate, cabinetId string) (Schedule, error) {
 
 	db := DBConnect()
 
 	defer db.Close()
 
-	query := "INSERT INTO `Companies` (`company_name`) VALUES ('" + companyName + "')"
+	query := "INSERT INTO `Cabinets_schedule` (`cabinet_id`,`date_time_start`,`date_time_end`) " +
+		"VALUES ( '" + cabinetId + "', '" + startDate + "', '" + endDate + "' )"
 
 	resultQuery := DBQuery(db, query)
 
 	if resultQuery == true {
-		return Schedule{}, nil
+		return Schedule{
+			CabinetId: cabinetId,
+			StartDate: startDate,
+			EndDate:   endDate,
+		}, nil
 	}
 
-	return Schedule{}, errors.New("Error on create company!")
+	return Schedule{}, errors.New("Error on create schedule!")
 }

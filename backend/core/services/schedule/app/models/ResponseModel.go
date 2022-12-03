@@ -59,18 +59,18 @@ func Response(w http.ResponseWriter, r *http.Request) {
 		response, _ = json.Marshal(schedules)
 
 	case "POST":
-		//schedules, err := CreateCompany(requestSchedule.Name)
+		schedules, err := CreateSchedule(requestSchedule.StartDate, requestSchedule.EndDate, requestSchedule.CabinetId)
 
-		//if err != nil {
-		//	response, _ := json.Marshal(ErrorResponse{
-		//		Status:  http.StatusBadRequest,
-		//		Message: err.Error(),
-		//	})
-		//	w.Write(response)
-		//	return
-		//}
-		//
-		//response, _ = json.Marshal(schedules)
+		if err != nil {
+			response, _ := json.Marshal(ErrorResponse{
+				Status:  http.StatusBadRequest,
+				Message: err.Error(),
+			})
+			w.Write(response)
+			return
+		}
+
+		response, _ = json.Marshal(schedules)
 	default:
 
 		w.WriteHeader(http.StatusMethodNotAllowed)

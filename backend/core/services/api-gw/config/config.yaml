@@ -4,3 +4,5 @@ company:
   url: "http://company:13070/api"
 cabinet:
   url: "http://cabinet:13060/api"
+schedule:
+  url: "http://schedule:13050/api"

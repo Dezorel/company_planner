@@ -10,5 +10,7 @@ func GateWayProcess() {
 
 	http.HandleFunc("/api/cabinet", models.ResponseCabinet)
 
+	http.HandleFunc("/api/schedule", models.ResponseSchedule)
+
 	http.ListenAndServe(":"+models.ConfigProcess().ServiceConfig.Port, nil)
 }

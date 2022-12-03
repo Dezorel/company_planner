@@ -1,0 +1,8 @@
+service:
+  port: "13050"
+database:
+  user: "dezorel"
+  pass: "dezorelpass"
+  ip: "database"
+  port: 3306
+  db: "Company_planner"

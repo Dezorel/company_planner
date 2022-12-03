@@ -12,23 +12,17 @@ type ServiceConfig struct {
 	Port string `yaml:"port"`
 }
 
-type CompanyConfig struct {
-	CompanyUrl string `yaml:"url"`
-}
-
-type CabinetConfig struct {
-	CabinetUrl string `yaml:"url"`
-}
-
-type ScheduleConfig struct {
-	ScheduleUrl string `yaml:"url"`
+type DatabaseConfig struct {
+	User     string `yaml:"user"`
+	Password string `yaml:"pass"`
+	IP       string `yaml:"ip"`
+	Port     string `yaml:"port"`
+	DB       string `yaml:"db"`
 }
 
 type Config struct {
 	ServiceConfig  `yaml:"service"`
-	CompanyConfig  `yaml:"company"`
-	CabinetConfig  `yaml:"cabinet"`
-	ScheduleConfig `yaml:"schedule"`
+	DatabaseConfig `yaml:"database"`
 }
 
 func ReadConfigFile(cfg *Config, configPath string) {

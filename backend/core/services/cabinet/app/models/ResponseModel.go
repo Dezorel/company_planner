@@ -33,6 +33,7 @@ func Response(w http.ResponseWriter, r *http.Request) {
 			Status:  http.StatusBadRequest,
 			Message: err.Error(),
 		})
+		Logger(1).Println(err)
 		w.Write(response)
 		return
 	}
@@ -53,6 +54,7 @@ func Response(w http.ResponseWriter, r *http.Request) {
 					Status:  http.StatusBadRequest,
 					Message: err.Error(),
 				})
+				Logger(1).Println(err)
 				w.Write(response)
 				return
 			}
@@ -66,6 +68,7 @@ func Response(w http.ResponseWriter, r *http.Request) {
 					Status:  http.StatusBadRequest,
 					Message: err.Error(),
 				})
+				Logger(1).Println(err)
 				w.Write(response)
 				return
 			}
@@ -80,6 +83,7 @@ func Response(w http.ResponseWriter, r *http.Request) {
 				Status:  http.StatusBadRequest,
 				Message: err.Error(),
 			})
+			Logger(1).Println(err)
 			w.Write(response)
 			return
 		}

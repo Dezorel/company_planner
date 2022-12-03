@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"gopkg.in/yaml.v3"
 	"os"
 )
@@ -9,7 +8,8 @@ import (
 const CONFIG_PATH = "./config/config.yaml"
 
 type ServiceConfig struct {
-	Port string `yaml:"port"`
+	Port     string `yaml:"port"`
+	LogLevel uint8  `yaml:"logLevel"`
 }
 
 type DatabaseConfig struct {
@@ -40,7 +40,7 @@ func ReadConfigFile(cfg *Config, configPath string) {
 }
 
 func processError(err error) {
-	fmt.Println(err)
+	Logger(1).Println(err)
 	os.Exit(2)
 }
 

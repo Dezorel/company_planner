@@ -42,6 +42,8 @@ func GetCabinetsByCompany(companyName string) ([]Cabinet, error) {
 
 	selectResult.Close()
 
+	Logger(3).Println("Cabinets found: ", answer)
+
 	return answer, nil
 }
 
@@ -81,6 +83,8 @@ func GetCabinetInfoById(cabinetId string) (Cabinet, error) {
 
 	selectResult.Close()
 
+	Logger(3).Println("Cabinet found: ", answerCabinet)
+
 	return answerCabinet, nil
 }
 
@@ -101,6 +105,11 @@ func CreateCabinet(companyName, cabinetNumber, cabinetSize, cabinetProperties st
 	resultQuery := DBQuery(db, query)
 
 	if resultQuery == true {
+
+		Logger(3).Println("Cabinets successfully created. companyName: " +
+			companyName + ", cabinetNumber: " + cabinetNumber + ", cabinetSize: " + cabinetSize +
+			", cabinetProperties: " + cabinetProperties)
+
 		return Cabinet{
 			Company:  companyName,
 			Number:   cabinetNumber,

@@ -84,11 +84,30 @@ func GetCabinetInfoById(cabinetId string) (Cabinet, error) {
 	return answerCabinet, nil
 }
 
-func CreateCabinet(companyName, cabinetNumber, cabinetSize, cabinetPropreties string) (Cabinet, error) {
-	return Cabinet{
-		Company:  companyName,
-		Number:   cabinetNumber,
-		Size:     cabinetSize,
-		Property: cabinetPropreties,
-	}, nil
+func CreateCabinet(companyName, cabinetNumber, cabinetSize, cabinetProperties string) (Cabinet, error) {
+
+	db := DBConnect()
+
+	defer db.Close()
+
+	query := "INSERT INTO `Cabinets` (`number`,`company_id`,`specifications`,`size_id`) " +
+		"VALUES (" +
+		"'" + cabinetNumber + "'," +
+		"( SELECT id FROM Companies WHERE company_name = '" + companyName + "' LIMIT 1)," +
+		"'" + cabinetProperties + "'," +
+		"( SELECT id FROM Cabinet_size WHERE cabinet_size >= '" + cabinetSize + "' ORDER BY cabinet_size ASC LIMIT 1)" +
+		")"
+
+	resultQuery := DBQuery(db, query)
+
+	if resultQuery == true {
+		return Cabinet{
+			Company:  companyName,
+			Number:   cabinetNumber,
+			Size:     cabinetSize,
+			Property: cabinetProperties,
+		}, nil
+	}
+
+	return Cabinet{}, errors.New("Error on create cabinet!")
 }

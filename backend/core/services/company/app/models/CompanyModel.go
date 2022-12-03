@@ -15,6 +15,8 @@ func GetCompanyByName(companyName string) (Company, error) {
 	resultQuery := DBQueryRow(db, query)
 
 	if resultQuery.Result == "1" {
+		Logger(3).Println("Company found. companyName: " + companyName)
+
 		return Company{Name: companyName}, nil
 	}
 
@@ -32,6 +34,8 @@ func CreateCompany(companyName string) (Company, error) {
 	resultQuery := DBQuery(db, query)
 
 	if resultQuery == true {
+		Logger(3).Println("Company successfully created. companyName: " + companyName)
+
 		return Company{Name: companyName}, nil
 	}
 

@@ -12,5 +12,7 @@ func GateWayProcess() {
 
 	http.HandleFunc("/api/schedule", models.ResponseSchedule)
 
+	models.Logger(3).Println("Gateway started")
+
 	http.ListenAndServe(":"+models.ConfigProcess().ServiceConfig.Port, nil)
 }

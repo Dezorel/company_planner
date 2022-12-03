@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"net/http"
 )
 
@@ -46,6 +45,7 @@ func ResponseCompany(w http.ResponseWriter, r *http.Request) {
 			Status:  http.StatusBadRequest,
 			Message: err.Error(),
 		})
+		Logger(1).Println(err)
 		w.Write(response)
 		return
 	}
@@ -57,13 +57,17 @@ func ResponseCompany(w http.ResponseWriter, r *http.Request) {
 	request.Header.Set("Content-Type", "application/json; charset=UTF-8")
 
 	client := &http.Client{}
+
+	Logger(4).Println("Send request: ", request)
+
 	response, error := client.Do(request)
+
 	if error != nil {
 		response, _ := json.Marshal(ErrorResponse{
 			Status:  http.StatusBadRequest,
 			Message: "Bad request!",
 		})
-
+		Logger(1).Println(err)
 		w.Write(response)
 		return
 	}
@@ -71,8 +75,10 @@ func ResponseCompany(w http.ResponseWriter, r *http.Request) {
 
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		log.Fatalln(err)
+		Logger(1).Println(err)
 	}
+
+	Logger(4).Printf("Get response: %s\n", body)
 
 	w.Write(body)
 }
@@ -90,6 +96,7 @@ func ResponseCabinet(w http.ResponseWriter, r *http.Request) {
 			Status:  http.StatusBadRequest,
 			Message: err.Error(),
 		})
+		Logger(1).Println(err)
 		w.Write(response)
 		return
 	}
@@ -107,13 +114,17 @@ func ResponseCabinet(w http.ResponseWriter, r *http.Request) {
 	request.Header.Set("Content-Type", "application/json; charset=UTF-8")
 
 	client := &http.Client{}
+
+	Logger(4).Println("Send request: ", request)
+
 	response, error := client.Do(request)
+
 	if error != nil {
 		response, _ := json.Marshal(ErrorResponse{
 			Status:  http.StatusBadRequest,
 			Message: "Bad request!",
 		})
-
+		Logger(1).Println(err)
 		w.Write(response)
 		return
 	}
@@ -121,8 +132,10 @@ func ResponseCabinet(w http.ResponseWriter, r *http.Request) {
 
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		log.Fatalln(err)
+		Logger(1).Println(err)
 	}
+
+	Logger(4).Printf("Get response: %s\n", body)
 
 	w.Write(body)
 }
@@ -140,6 +153,7 @@ func ResponseSchedule(w http.ResponseWriter, r *http.Request) {
 			Status:  http.StatusBadRequest,
 			Message: err.Error(),
 		})
+		Logger(1).Println(err)
 		w.Write(response)
 		return
 	}
@@ -157,13 +171,17 @@ func ResponseSchedule(w http.ResponseWriter, r *http.Request) {
 	request.Header.Set("Content-Type", "application/json; charset=UTF-8")
 
 	client := &http.Client{}
+
+	Logger(4).Println("Send request: ", request)
+
 	response, error := client.Do(request)
+
 	if error != nil {
 		response, _ := json.Marshal(ErrorResponse{
 			Status:  http.StatusBadRequest,
 			Message: "Bad request!",
 		})
-
+		Logger(1).Println(err)
 		w.Write(response)
 		return
 	}
@@ -171,8 +189,10 @@ func ResponseSchedule(w http.ResponseWriter, r *http.Request) {
 
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		log.Fatalln(err)
+		Logger(1).Println(err)
 	}
+
+	Logger(4).Printf("Get response: %s\n", body)
 
 	w.Write(body)
 }

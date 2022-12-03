@@ -28,6 +28,8 @@ func Response(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&requestCabinet)
 
+	Logger(3).Println("Get request: ", r.Method, requestCabinet)
+
 	if err != nil {
 		response, _ := json.Marshal(ErrorResponse{
 			Status:  http.StatusBadRequest,

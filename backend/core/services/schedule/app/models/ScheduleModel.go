@@ -48,6 +48,8 @@ func GetScheduleByCompanyId(companyName string) ([]Schedule, error) {
 
 	selectResult.Close()
 
+	Logger(3).Println("Schedule found: ", answer)
+
 	return answer, nil
 }
 
@@ -63,6 +65,9 @@ func CreateSchedule(startDate, endDate, cabinetId string) (Schedule, error) {
 	resultQuery := DBQuery(db, query)
 
 	if resultQuery == true {
+		Logger(3).Println("Schedule successfully created. cabinetId: " + cabinetId +
+			", startDate: " + startDate + ", endDate: " + endDate)
+
 		return Schedule{
 			CabinetId: cabinetId,
 			StartDate: startDate,

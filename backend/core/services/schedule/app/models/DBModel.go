@@ -18,6 +18,7 @@ func DBConnect() *sql.DB {
 			databaseConfig.Port+")/"+databaseConfig.DB)
 
 	if err != nil {
+		Logger(1).Println(err)
 		panic(err)
 	}
 
@@ -33,6 +34,7 @@ func DBQueryRow(db *sql.DB, query string) DbSingleAnswer {
 	err := result.Scan(&answer.Result)
 
 	if err != nil {
+		Logger(1).Println(err)
 		return DbSingleAnswer{Result: "false"}
 	}
 
@@ -43,6 +45,7 @@ func DBQuery(db *sql.DB, query string) bool {
 	_, err := db.Query(query)
 
 	if err != nil {
+		Logger(1).Println(err)
 		return false
 	} else {
 		return true

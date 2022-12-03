@@ -40,6 +40,8 @@ func ResponseCompany(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&requestCompany)
 
+	Logger(3).Println("Get request: ", r.Method, requestCompany)
+
 	if err != nil {
 		response, _ := json.Marshal(ErrorResponse{
 			Status:  http.StatusBadRequest,
@@ -90,6 +92,8 @@ func ResponseCabinet(w http.ResponseWriter, r *http.Request) {
 	var requestCabinet CabinetRequest
 
 	err := json.NewDecoder(r.Body).Decode(&requestCabinet)
+
+	Logger(3).Println("Get request: ", r.Method, requestCabinet)
 
 	if err != nil {
 		response, _ := json.Marshal(ErrorResponse{
@@ -147,6 +151,8 @@ func ResponseSchedule(w http.ResponseWriter, r *http.Request) {
 	var requestSchedule ScheduleRequest
 
 	err := json.NewDecoder(r.Body).Decode(&requestSchedule)
+
+	Logger(3).Println("Get request: ", r.Method, requestSchedule)
 
 	if err != nil {
 		response, _ := json.Marshal(ErrorResponse{

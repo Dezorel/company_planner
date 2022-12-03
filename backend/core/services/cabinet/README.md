@@ -1,1 +1,1 @@
-Offices reservation logic
+# Cabinet logic (CRUD)

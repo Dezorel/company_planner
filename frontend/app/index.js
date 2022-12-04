@@ -48,9 +48,9 @@ function showPage2(){
   let nameCompany = document.getElementById("company_name").value
   console.log(nameCompany)
   var data = []
-      newURL = requestURL+'/company'
+      newURL = requestURL+'/company/'+nameCompany
       async function request(){
-         data = await sendRequest('GET', newURL, {name:nameCompany}) 
+         data = await sendRequest('GET', newURL)
       }
       request()
 
@@ -59,7 +59,7 @@ function showPage2(){
       },1000)
 }
 function createCompany(){
-  let nameCompany = document.getElementById("company_name")
+  let nameCompany = document.getElementById("company_name").value
   var data = []
       newURL = requestURL+'/company'
       async function request(){
@@ -77,7 +77,7 @@ function addCalendarEvent(){
   var data = []
       newURL = requestURL+'/company'
       async function request(){
-         data = await sendRequest('POST', newURL, {eventName:eventName,name:nameCompany}) 
+         data = await sendRequest('POST', newURL, {eventName:eventName,name:nameCompany})
       }
       request()
 

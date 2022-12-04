@@ -1,0 +1,9 @@
+service:
+  port: "13060"
+  logLevel: 4 # 1 - CRITICAL, 2 - WARNING, 3 - INFO, 4 - DEBUG
+database:
+  user: "dezorel"
+  pass: "dezorelpass"
+  ip: "database"
+  port: 3306
+  db: "Company_planner"

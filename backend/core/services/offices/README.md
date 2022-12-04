@@ -1,1 +1,0 @@
-Offices reservation logic

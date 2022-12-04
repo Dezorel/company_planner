@@ -1,0 +1,52 @@
+version: "3.2"
+
+services:
+  database:
+    image: mysql:5.7
+    ports:
+      - "3303:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "Zjk89#3*3VMMhen#7l!6sDzypeW2"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+      MYSQL_RANDOM_ROOT_PASSWORD:  "no"
+      MYSQL_USER: "dezorel"
+      MYSQL_PASSWORD: "dezorelpass"
+      MYSQL_DATABASE: "Company_planner"
+      restart: always
+    volumes:
+      - ./backend/db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost", "-udezorel", "-pdezorelpass" ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+
+  gateway:
+    build: ./backend/core/services/api-gw
+    ports:
+      - "13080:13080"
+    depends_on:
+      - database
+  company:
+    build: ./backend/core/services/company
+    ports:
+      - "13070:13070"
+    depends_on:
+      - gateway
+  cabinet:
+    build: ./backend/core/services/cabinet
+    ports:
+      - "13060:13060"
+    depends_on:
+      - gateway
+  schedule:
+    build: ./backend/core/services/schedule
+    ports:
+      - "13050:13050"
+    depends_on:
+      - gateway

@@ -3,6 +3,8 @@ package models
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
+	"github.com/gorilla/mux"
 	"io/ioutil"
 	"net/http"
 )
@@ -38,19 +40,33 @@ func ResponseCompany(w http.ResponseWriter, r *http.Request) {
 
 	var requestCompany CompanyRequest
 
-	err := json.NewDecoder(r.Body).Decode(&requestCompany)
+	variables := mux.Vars(r)
+
+	comapanyName, ok := variables["companyName"]
+
+	if !ok {
+		fmt.Println("id is missing in parameters")
+	}
+
+	if comapanyName == "" {
+
+		err := json.NewDecoder(r.Body).Decode(&requestCompany)
+
+		if err != nil {
+			response, _ := json.Marshal(ErrorResponse{
+				Status:  http.StatusBadRequest,
+				Message: err.Error(),
+			})
+			Logger(1).Println(err)
+			w.Write(response)
+			return
+		}
+
+	} else {
+		requestCompany.Name = comapanyName
+	}
 
 	Logger(3).Println("Get request: ", r.Method, requestCompany)
-
-	if err != nil {
-		response, _ := json.Marshal(ErrorResponse{
-			Status:  http.StatusBadRequest,
-			Message: err.Error(),
-		})
-		Logger(1).Println(err)
-		w.Write(response)
-		return
-	}
 
 	requestData := []byte(`{"name": "` + requestCompany.Name + `"}`)
 
@@ -69,7 +85,7 @@ func ResponseCompany(w http.ResponseWriter, r *http.Request) {
 			Status:  http.StatusBadRequest,
 			Message: "Bad request!",
 		})
-		Logger(1).Println(err)
+		Logger(1).Println(error)
 		w.Write(response)
 		return
 	}

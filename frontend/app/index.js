@@ -39,7 +39,7 @@ function showCalendar() {
 // Show cabinet info
 function createCabinet() {
   let cabNum = document.getElementById('cabNum').value
-  let cabSize = document.getElementById('cabSize').value
+  let size 
   let optionWiFI
   let optionProector
 
@@ -74,12 +74,14 @@ function createCompany(){
       },1000)
 }
 function addCalendarEvent(){
+  let startDate = document.getElementById("startDate").value
+  let endDate = document.getElementById("endDate").value
   let nameCompany = document.getElementById("company_name").value
   let cabNumber = document.getElementById("cabNumber").value
   var data = []
-      newURL = requestURL+'/company'
+      newURL = requestURL+'/schedule'
       async function request(){
-         data = await sendRequest('POST', newURL, {cabNumber:cabNumber,name:nameCompany})
+         data = await sendRequest('POST', newURL, {cabNumber:cabNumber,name:nameCompany,date_time_start:startDate,date_time_end:endDate})
       }
       request()
 

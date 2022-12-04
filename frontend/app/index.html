@@ -72,11 +72,11 @@
                          <form action="">
                           <div>
                             <label for="party">Enter start date</label>
-                            <input id="party" type="datetime-local" name="partydate" />
+                            <input id="startDate" type="datetime-local" name="partydate" />
                           </div>
                           <div class="mt-3">
                             <label for="party">Enter end date</label>
-                            <input id="party" type="datetime-local" name="partydate" />
+                            <input id="endDate" type="datetime-local" name="partydate" />
                           </div>
                             <div class="mb-3 mt-3">
                               <label for="companyName" class="form-label">Company name</label>
@@ -87,14 +87,7 @@
                                <span class="input-group-text" id="basic-addon1">№</span>
                                <input type="text" class="form-control" id="cabNumber" placeholder="cabinet number" aria-label="cabNumber" aria-describedby="basic-addon1">
                              </div>
-                            <div class="form-check form-switch">
-                               <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                               <label class="form-check-label" for="flexSwitchCheckDefault">Wi-Fi</label>
-                             </div>
-                             <div class="form-check form-switch">
-                               <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                               <label class="form-check-label" for="flexSwitchCheckDefault">Proector</label>
-                             </div>
+                            
                          </form>
                       </div>
                       <div class="modal-footer">
@@ -147,7 +140,7 @@
                                     <label class="form-check-label" for="flexSwitchCheckDefault">Cabinet number</label>
                                     <input type="text" class="form-control" name="cabNumber" id="cabNum">
                                  </div>
-                                 <select class="form-select" aria-label=".form-select-sm example">
+                                 <select class="form-select" id="cabSize" aria-label=".form-select-sm example">
                                     <option selected>Open this select menu</option>
                                     <option value="1">30 humans</option>
                                     <option value="2">60 humans</option>

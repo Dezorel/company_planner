@@ -35,15 +35,17 @@ function showCalendar() {
 //   document.getElementById("page1").setAttribute("style", "display: none");
 //   document.getElementById("page2").setAttribute("style", "display: block");
 // }
+
 // Show cabinet info
-function saveCabinet() {
-  let cabNum= document.getElementById('cabNum').value
-  let size
+function createCabinet() {
+  let cabNum = document.getElementById('cabNum').value
+  let cabSize = document.getElementById('cabSize').value
   let optionWiFI
   let optionProector
 
   return console.log(cabNum)
 }
+
 function showPage2(){
   let nameCompany = document.getElementById("company_name").value
   console.log(nameCompany)
@@ -72,12 +74,12 @@ function createCompany(){
       },1000)
 }
 function addCalendarEvent(){
-  let nameCompany = document.getElementById("company_name")
-  let eventName = document.getElementById("event_name")
+  let nameCompany = document.getElementById("company_name").value
+  let cabNumber = document.getElementById("cabNumber").value
   var data = []
       newURL = requestURL+'/company'
       async function request(){
-         data = await sendRequest('POST', newURL, {eventName:eventName,name:nameCompany})
+         data = await sendRequest('POST', newURL, {cabNumber:cabNumber,name:nameCompany})
       }
       request()
 

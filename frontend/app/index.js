@@ -79,19 +79,19 @@ function createCabinet() {
   let nameCompany = document.getElementById("cabCompanyName").value
   let cabNum = document.getElementById('cabNum').value
   let size = document.getElementById('cabSize').value
-  let optionWiFI = document.getElementById('cabSize').value
-  let optionProector = document.getElementById('cabSize').value
+  let optionWiFI = document.getElementById('wifiChekBox').checked
+  let optionProector = document.getElementById('proiectorChekBox').checked
   let property = ""
-  if (optionWiFI == true) {
-    property+= " Wifi "
+    
+  if (optionWiFI === true) {
+      property+= " Wifi "
   }
-  if (optionProector == true) {
-    property+= " Proector "
+  if (optionProector === true) {
+      property+= " Proector "
   }
-  
 
   var data = []
-      newURL = requestURL+'/schedule'
+      newURL = requestURL+'/cabinet'
       async function request(){
          data = await sendRequest('POST', newURL, {number:cabNum, company:nameCompany, size:size, property:property })
       }

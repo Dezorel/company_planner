@@ -47,7 +47,21 @@ function saveCabinet() {
 
   return console.log(cabNum)
 }
+function showpage2(){
+  let nameComepany = document.getElementById("company_name")
+  var data = []
+      newURL = requestURL+'/company'
+      async function request(){
+         data = await sendRequest('GET', newURL, {name:nameComepany}) 
+      }
+      request()
 
+      setTimeout(()=>{
+         console.log(data)
+      },1000)
+}
+function createCompany(){
 
+}
 
 

@@ -1,4 +1,4 @@
-const requestURL = 'https://jsonplaceholder.typicode.com'
+const requestURL = 'https://gateway:13080/api'
 
 async function sendRequest(method, url, body = null) {
     const headers = {

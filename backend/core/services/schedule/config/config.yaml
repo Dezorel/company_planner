@@ -1,5 +1,5 @@
 service:
-  port: "13070"
+  port: "13050"
   logLevel: 4 # 1 - CRITICAL, 2 - WARNING, 3 - INFO, 4 - DEBUG
 database:
   user: "dezorel"

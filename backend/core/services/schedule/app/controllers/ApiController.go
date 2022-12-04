@@ -1,15 +1,15 @@
 package controllers
 
 import (
-	"company/app/models"
 	"net/http"
+	"schedule/app/models"
 )
 
 func ApiProcess() {
 
 	http.HandleFunc("/api", models.Response)
 
-	models.Logger(3).Println("Company API started")
+	models.Logger(3).Println("Schedule API started")
 
 	http.ListenAndServe(":"+models.ConfigProcess().ServiceConfig.Port, nil)
 }

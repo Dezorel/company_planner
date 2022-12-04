@@ -14,7 +14,6 @@ services:
       MYSQL_DATABASE: "Company_planner"
       restart: always
     volumes:
-      # монтирование директории а не инициализация БД
       - ./backend/db:/docker-entrypoint-initdb.d
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost", "-udezorel", "-pdezorelpass" ]
@@ -22,9 +21,32 @@ services:
       timeout: 5s
       retries: 20
 
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+
+  gateway:
+    build: ./backend/core/services/api-gw
+    ports:
+      - "13080:13080"
+    depends_on:
+      - database
   company:
     build: ./backend/core/services/company
     ports:
       - "13070:13070"
     depends_on:
-      - database
+      - gateway
+  cabinet:
+    build: ./backend/core/services/cabinet
+    ports:
+      - "13060:13060"
+    depends_on:
+      - gateway
+  schedule:
+    build: ./backend/core/services/schedule
+    ports:
+      - "13050:13050"
+    depends_on:
+      - gateway

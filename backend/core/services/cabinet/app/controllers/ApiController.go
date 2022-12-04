@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"company/app/models"
+	"cabinet/app/models"
 	"net/http"
 )
 
@@ -9,7 +9,7 @@ func ApiProcess() {
 
 	http.HandleFunc("/api", models.Response)
 
-	models.Logger(3).Println("Company API started")
+	models.Logger(3).Println("Cabinet API started")
 
 	http.ListenAndServe(":"+models.ConfigProcess().ServiceConfig.Port, nil)
 }

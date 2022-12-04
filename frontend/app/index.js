@@ -2,6 +2,29 @@
 toggle between hiding and showing the dropdown content */
 function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
+
+  let nameCompany = document.getElementById("company_name").value
+
+  var data = []
+      newURL = requestURL+'/cabinet/' + nameCompany
+      async function request(){
+         data = await sendRequest('GET', newURL)
+      }
+      request()
+
+      setTimeout(()=>{
+         console.log(data)
+         let cabList = document.getElementById("myDropdown")
+
+         data.forEach(cab => {
+          let element = document.createElement("a")
+          element.append(cab)
+
+        })
+
+      },1000)
+
+
 }
 
 function onloadCalendar(companyName){

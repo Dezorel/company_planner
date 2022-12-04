@@ -18,7 +18,12 @@ function myFunction() {
 
          data.forEach(cab => {
           let element = document.createElement("a")
-          element.append(cab)
+          element.append(cab.number)
+
+          element.setAttribute('title', "Number: " + cab.number + ", size: " + cab.size +
+              ", property: " + cab.property + ", company: " + cab.company)
+
+          cabList.append(element)
 
         })
 

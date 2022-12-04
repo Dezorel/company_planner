@@ -76,7 +76,7 @@ function createCompany(){
 function addCalendarEvent(){
   let startDate = document.getElementById("startDate").value
   let endDate = document.getElementById("endDate").value
-  let nameCompany = document.getElementById("company_name").value
+  let nameCompany = document.getElementById("companyName").value
   let cabNumber = document.getElementById("cabNumber").value
   var data = []
       newURL = requestURL+'/schedule'

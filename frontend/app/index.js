@@ -81,7 +81,7 @@ function addCalendarEvent(){
   var data = []
       newURL = requestURL+'/schedule'
       async function request(){
-         data = await sendRequest('POST', newURL, {cabNumber:cabNumber,name:nameCompany,date_time_start:startDate,date_time_end:endDate})
+         data = await sendRequest('POST', newURL, {cabinet_number:cabNumber,name:company_name,date_time_start:startDate,date_time_end:endDate})
       }
       request()
 

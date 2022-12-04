@@ -53,25 +53,30 @@ func GetScheduleByCompanyId(companyName string) ([]Schedule, error) {
 	return answer, nil
 }
 
-func CreateSchedule(startDate, endDate, cabinetId string) (Schedule, error) {
+func CreateSchedule(companyName, startDate, endDate, cabinetNumber string) (Schedule, error) {
 
 	db := DBConnect()
 
 	defer db.Close()
 
 	query := "INSERT INTO `Cabinets_schedule` (`cabinet_id`,`date_time_start`,`date_time_end`) " +
-		"VALUES ( '" + cabinetId + "', '" + startDate + "', '" + endDate + "' )"
+		" VALUES ( " +
+		" (SELECT cab.id FROM Cabinets cab " +
+		" INNER JOIN Companies comp ON comp.id = cab.company_id " +
+		" WHERE cab.number = '" + cabinetNumber + "' AND company_name = '" + companyName + "' LIMIT 1)," +
+		" '" + startDate + "', '" + endDate + "' )"
 
 	resultQuery := DBQuery(db, query)
 
 	if resultQuery == true {
-		Logger(3).Println("Schedule successfully created. cabinetId: " + cabinetId +
+		Logger(3).Println("Schedule successfully created. cabinetNumber: " + cabinetNumber +
 			", startDate: " + startDate + ", endDate: " + endDate)
 
 		return Schedule{
-			CabinetId: cabinetId,
-			StartDate: startDate,
-			EndDate:   endDate,
+			CabinetNumber: cabinetNumber,
+			StartDate:     startDate,
+			EndDate:       endDate,
+			CompanyName:   companyName,
 		}, nil
 	}
 

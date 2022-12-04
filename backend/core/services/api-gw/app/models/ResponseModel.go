@@ -86,14 +86,14 @@ func ResponseCompany(w http.ResponseWriter, r *http.Request) {
 
 	Logger(4).Println("Send request: ", request)
 
-	response, error := client.Do(request)
+	response, err := client.Do(request)
 
-	if error != nil {
+	if err != nil {
 		response, _ := json.Marshal(ErrorResponse{
 			Status:  http.StatusBadRequest,
 			Message: "Bad request!",
 		})
-		Logger(1).Println(error)
+		Logger(1).Println(err)
 		w.Write(response)
 		return
 	}
@@ -110,24 +110,46 @@ func ResponseCompany(w http.ResponseWriter, r *http.Request) {
 }
 
 func ResponseCabinet(w http.ResponseWriter, r *http.Request) {
+	headers := w.Header()
+	headers.Add("Access-Control-Allow-Origin", "*")
+	headers.Add("Vary", "Origin")
+	headers.Add("Vary", "Access-Control-Request-Method")
+	headers.Add("Vary", "Access-Control-Request-Headers")
+	headers.Add("Access-Control-Allow-Headers", "Content-Type, Origin, Accept, token")
+	headers.Add("Access-Control-Allow-Methods", "GET, POST,OPTIONS")
 
 	cabinetUrl := ConfigProcess().CabinetConfig.CabinetUrl
 
 	var requestCabinet CabinetRequest
 
-	err := json.NewDecoder(r.Body).Decode(&requestCabinet)
+	variables := mux.Vars(r)
 
-	Logger(3).Println("Get request: ", r.Method, requestCabinet)
+	comapanyName, ok := variables["companyName"]
 
-	if err != nil {
-		response, _ := json.Marshal(ErrorResponse{
-			Status:  http.StatusBadRequest,
-			Message: err.Error(),
-		})
-		Logger(1).Println(err)
-		w.Write(response)
+	if !ok {
+		fmt.Println("Missing GET REST in parameters")
+
+		err := json.NewDecoder(r.Body).Decode(&requestCabinet)
+
+		if err != nil {
+			response, _ := json.Marshal(ErrorResponse{
+				Status:  http.StatusBadRequest,
+				Message: err.Error(),
+			})
+			Logger(1).Println(err)
+			w.Write(response)
+			return
+		}
+	} else {
+		requestCabinet.Company = comapanyName
+	}
+
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
 		return
 	}
+
+	Logger(3).Println("Get request: ", r.Method, requestCabinet)
 
 	requestData := []byte(`{
 		"id": "` + requestCabinet.Id + `",
@@ -145,9 +167,9 @@ func ResponseCabinet(w http.ResponseWriter, r *http.Request) {
 
 	Logger(4).Println("Send request: ", request)
 
-	response, error := client.Do(request)
+	response, err := client.Do(request)
 
-	if error != nil {
+	if err != nil {
 		response, _ := json.Marshal(ErrorResponse{
 			Status:  http.StatusBadRequest,
 			Message: "Bad request!",
@@ -169,28 +191,50 @@ func ResponseCabinet(w http.ResponseWriter, r *http.Request) {
 }
 
 func ResponseSchedule(w http.ResponseWriter, r *http.Request) {
+	headers := w.Header()
+	headers.Add("Access-Control-Allow-Origin", "*")
+	headers.Add("Vary", "Origin")
+	headers.Add("Vary", "Access-Control-Request-Method")
+	headers.Add("Vary", "Access-Control-Request-Headers")
+	headers.Add("Access-Control-Allow-Headers", "Content-Type, Origin, Accept, token")
+	headers.Add("Access-Control-Allow-Methods", "GET, POST,OPTIONS")
 
 	scheduleUrl := ConfigProcess().ScheduleConfig.ScheduleUrl
 
 	var requestSchedule ScheduleRequest
 
-	err := json.NewDecoder(r.Body).Decode(&requestSchedule)
+	variables := mux.Vars(r)
 
-	Logger(3).Println("Get request: ", r.Method, requestSchedule)
+	comapanyName, ok := variables["companyName"]
 
-	if err != nil {
-		response, _ := json.Marshal(ErrorResponse{
-			Status:  http.StatusBadRequest,
-			Message: err.Error(),
-		})
-		Logger(1).Println(err)
-		w.Write(response)
+	if !ok {
+		fmt.Println("Missing GET REST in parameters")
+
+		err := json.NewDecoder(r.Body).Decode(&requestSchedule)
+
+		if err != nil {
+			response, _ := json.Marshal(ErrorResponse{
+				Status:  http.StatusBadRequest,
+				Message: err.Error(),
+			})
+			Logger(1).Println(err)
+			w.Write(response)
+			return
+		}
+	} else {
+		requestSchedule.CompanyName = comapanyName
+	}
+
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
 		return
 	}
 
+	Logger(3).Println("Get request: ", r.Method, requestSchedule)
+
 	requestData := []byte(`{
 		"cabinet_id": "` + requestSchedule.CabinetId + `",
-		"cabinet_number": "` + requestSchedule.CabinetId + `",
+		"cabinet_number": "` + requestSchedule.CabinetNumber + `",
 		"date_time_start": "` + requestSchedule.StartDate + `",
 		"date_time_end": "` + requestSchedule.EndDate + `",
 		"company_name": "` + requestSchedule.CompanyName + `"
@@ -204,9 +248,9 @@ func ResponseSchedule(w http.ResponseWriter, r *http.Request) {
 
 	Logger(4).Println("Send request: ", request)
 
-	response, error := client.Do(request)
+	response, err := client.Do(request)
 
-	if error != nil {
+	if err != nil {
 		response, _ := json.Marshal(ErrorResponse{
 			Status:  http.StatusBadRequest,
 			Message: "Bad request!",

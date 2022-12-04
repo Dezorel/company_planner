@@ -15,6 +15,30 @@ function onloadCalendar(companyName){
 
       setTimeout(()=>{
          console.log(data)
+
+          var calendarEl = document.getElementById('calendar');
+
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+              headerToolbar: {
+                  left: 'prevYear,prev,next,nextYear today',
+                  center: 'title',
+                  right: 'dayGridMonth,dayGridWeek,dayGridDay'
+              },
+              initialDate: '2020-09-12',
+              navLinks: true, // can click day/week names to navigate views
+              editable: true,
+              dayMaxEvents: true, // allow "more" link when too many events
+              events: [
+                  {
+                      "title":data[0].cabinet_number,
+                      "start":data[0].date_time_start,
+                      "end":data[0].date_time_end,
+                  }
+              ]
+          });
+
+          calendar.render()
+
       },1000)
       
 }

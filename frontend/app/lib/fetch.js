@@ -1,4 +1,4 @@
-const requestURL = 'https://gateway:13080/api'
+const requestURL = 'http://gateway:13080/api'
 
 async function sendRequest(method, url, body = null) {
     const headers = {
@@ -7,7 +7,7 @@ async function sendRequest(method, url, body = null) {
 
     return await fetch(url, {
         method: method,
-        // body: JSON.stringify(body),
+        body: JSON.stringify(body),
         headers:headers
     }).then(async response => {
         if (response.ok) {

@@ -36,9 +36,6 @@ function showCalendar() {
 //   document.getElementById("page2").setAttribute("style", "display: block");
 // }
 // Show cabinet info
-function showCabinetInfo(cabNumber) {
-
-}
 function saveCabinet() {
   let cabNum= document.getElementById('cabNum').value
   let size
@@ -48,11 +45,39 @@ function saveCabinet() {
   return console.log(cabNum)
 }
 function showPage2(){
-  let nameComepany = document.getElementById("company_name")
+  let nameCompany = document.getElementById("company_name").value
+  console.log(nameCompany)
   var data = []
       newURL = requestURL+'/company'
       async function request(){
-         data = await sendRequest('GET', newURL, {name:nameComepany}) 
+         data = await sendRequest('GET', newURL, {name:nameCompany}) 
+      }
+      request()
+
+      setTimeout(()=>{
+         console.log(data)
+      },1000)
+}
+function createCompany(){
+  let nameCompany = document.getElementById("company_name")
+  var data = []
+      newURL = requestURL+'/company'
+      async function request(){
+         data = await sendRequest('POST', newURL, {name:nameCompany}) 
+      }
+      request()
+
+      setTimeout(()=>{
+         console.log(data)
+      },1000)
+}
+function addCalendarEvent(){
+  let nameCompany = document.getElementById("company_name")
+  let eventName = document.getElementById("event_name")
+  var data = []
+      newURL = requestURL+'/company'
+      async function request(){
+         data = await sendRequest('POST', newURL, {eventName:eventName,name:nameCompany}) 
       }
       request()
 

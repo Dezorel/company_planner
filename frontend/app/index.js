@@ -47,7 +47,7 @@ function saveCabinet() {
 
   return console.log(cabNum)
 }
-function showpage2(){
+function showPage2(){
   let nameComepany = document.getElementById("company_name")
   var data = []
       newURL = requestURL+'/company'
@@ -60,8 +60,6 @@ function showpage2(){
          console.log(data)
       },1000)
 }
-function createCompany(){
 
-}
 
 

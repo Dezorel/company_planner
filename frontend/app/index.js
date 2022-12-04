@@ -4,6 +4,21 @@ function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
+function onloadCalendar(){
+  let companyName = showPage2()
+
+  var data = []
+      newURL = requestURL+'/schedule/'+companyName
+      async function request(){
+         data = await sendRequest('GET', newURL) 
+      }
+      request()
+
+      setTimeout(()=>{
+         console.log(data)
+      },1000)
+      
+}
 
 function filterFunction() {
   var input, filter, ul, li, a, i;
@@ -59,6 +74,8 @@ function showPage2(){
       setTimeout(()=>{
          console.log(data)
       },1000)
+
+      return data.name
 }
 function createCompany(){
   let nameCompany = document.getElementById("company_name").value
@@ -72,6 +89,8 @@ function createCompany(){
       setTimeout(()=>{
          console.log(data)
       },1000)
+
+      return data.name
 }
 function addCalendarEvent(){
   let startDate = document.getElementById("startDate").value

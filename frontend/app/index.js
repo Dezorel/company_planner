@@ -76,11 +76,31 @@ function showCalendar() {
 
 // Show cabinet info
 function createCabinet() {
+  let nameCompany = document.getElementById("cabCompanyName").value
   let cabNum = document.getElementById('cabNum').value
-  let size 
-  let optionWiFI
-  let optionProector
+  let size = document.getElementById('cabSize').value
+  let optionWiFI = document.getElementById('cabSize').value
+  let optionProector = document.getElementById('cabSize').value
+  let property = ""
+  if (optionWiFI == true) {
+    property+= " Wifi "
+  }
+  if (optionProector == true) {
+    property+= " Proector "
+  }
+  
 
+  var data = []
+      newURL = requestURL+'/schedule'
+      async function request(){
+         data = await sendRequest('POST', newURL, {number:cabNum, company:nameCompany, size:size, property:property })
+      }
+      request()
+
+      setTimeout(()=>{
+         console.log(data)
+      },1000)
+      
   return console.log(cabNum)
 }
 

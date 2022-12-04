@@ -4,8 +4,7 @@ function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
-function onloadCalendar(){
-  let companyName = showPage2()
+function onloadCalendar(companyName){
 
   var data = []
       newURL = requestURL+'/schedule/'+companyName
@@ -73,9 +72,8 @@ function showPage2(){
 
       setTimeout(()=>{
          console.log(data)
+          onloadCalendar(data.name)
       },1000)
-
-      return data.name
 }
 function createCompany(){
   let nameCompany = document.getElementById("company_name").value
@@ -88,9 +86,8 @@ function createCompany(){
 
       setTimeout(()=>{
          console.log(data)
+          onloadCalendar(data.name)
       },1000)
-
-      return data.name
 }
 function addCalendarEvent(){
   let startDate = document.getElementById("startDate").value

@@ -28,8 +28,6 @@ function myFunction() {
         })
 
       },1000)
-
-
 }
 
 function onloadCalendar(companyName){
@@ -64,11 +62,8 @@ function onloadCalendar(companyName){
                   }
               ]
           });
-
           calendar.render()
-
       },1000)
-      
 }
 
 function filterFunction() {
@@ -86,11 +81,13 @@ function filterFunction() {
     }
   }
 }
+
 // показать скрыть кабинет
 function showCabinet() {
   document.getElementById("calendar__container").setAttribute("style", "display: none");
   document.getElementById("cabinet").setAttribute("style", "display: block");
 }
+
 // показать скрыть календарь
 function showCalendar() {
   document.getElementById("cabinet").setAttribute("style", "display: none");
@@ -128,7 +125,7 @@ function createCabinet() {
       setTimeout(()=>{
          console.log(data)
       },1000)
-      
+    
   return console.log(cabNum)
 }
 
@@ -147,6 +144,7 @@ function showPage2(){
           onloadCalendar(data.name)
       },1000)
 }
+
 function createCompany(){
   let nameCompany = document.getElementById("company_name").value
   var data = []
@@ -161,6 +159,7 @@ function createCompany(){
           onloadCalendar(data.name)
       },1000)
 }
+
 function addCalendarEvent(){
   let startDate = document.getElementById("startDate").value
   let endDate = document.getElementById("endDate").value
@@ -175,8 +174,5 @@ function addCalendarEvent(){
 
       setTimeout(()=>{
          console.log(data)
-      },1000)
+      },1000) 
 }
-
-
-

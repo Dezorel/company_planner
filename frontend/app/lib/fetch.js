@@ -1,4 +1,4 @@
-const requestURL = 'http://192.168.0.101:13080/api'
+const requestURL = 'http://127.0.0.1:13080/api'
 
 async function sendRequest(method, url, body = null) {
     const headers = {

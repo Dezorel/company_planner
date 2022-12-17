@@ -28,8 +28,6 @@ function myFunction() {
         })
 
       },1000)
-
-
 }
 
 function onloadCalendar(companyName){
@@ -46,29 +44,30 @@ function onloadCalendar(companyName){
 
           var calendarEl = document.getElementById('calendar');
 
+          eventsArr = [];
+          data.forEach(cabinetDate => {
+              eventsArr.push({
+                  "title":cabinetDate.cabinet_number,
+                  "start":cabinetDate.date_time_start,
+                  "end":cabinetDate.date_time_end,
+              })
+          })
+
           var calendar = new FullCalendar.Calendar(calendarEl, {
               headerToolbar: {
                   left: 'prevYear,prev,next,nextYear today',
                   center: 'title',
                   right: 'dayGridMonth,dayGridWeek,dayGridDay'
               },
-              initialDate: '2020-09-12',
+              initialDate: new Date().toJSON().slice(0, 10),
               navLinks: true, // can click day/week names to navigate views
               editable: true,
               dayMaxEvents: true, // allow "more" link when too many events
-              events: [
-                  {
-                      "title":data[0].cabinet_number,
-                      "start":data[0].date_time_start,
-                      "end":data[0].date_time_end,
-                  }
-              ]
+              events: eventsArr
           });
 
           calendar.render()
-
       },1000)
-      
 }
 
 function filterFunction() {
@@ -86,15 +85,22 @@ function filterFunction() {
     }
   }
 }
+
 // показать скрыть кабинет
 function showCabinet() {
   document.getElementById("calendar__container").setAttribute("style", "display: none");
   document.getElementById("cabinet").setAttribute("style", "display: block");
 }
+
 // показать скрыть календарь
 function showCalendar() {
   document.getElementById("cabinet").setAttribute("style", "display: none");
   document.getElementById("calendar__container").setAttribute("style", "display: block");
+}
+
+function removeMenu() {
+    document.getElementById("page1").setAttribute("style", "display:none")
+    document.getElementById("page2").setAttribute("style", "visibility: visible");
 }
 
 // function showPage2() {
@@ -128,7 +134,7 @@ function createCabinet() {
       setTimeout(()=>{
          console.log(data)
       },1000)
-      
+    
   return console.log(cabNum)
 }
 
@@ -145,8 +151,10 @@ function showPage2(){
       setTimeout(()=>{
          console.log(data)
           onloadCalendar(data.name)
+          removeMenu()
       },1000)
 }
+
 function createCompany(){
   let nameCompany = document.getElementById("company_name").value
   var data = []
@@ -159,8 +167,10 @@ function createCompany(){
       setTimeout(()=>{
          console.log(data)
           onloadCalendar(data.name)
+          removeMenu()
       },1000)
 }
+
 function addCalendarEvent(){
   let startDate = document.getElementById("startDate").value
   let endDate = document.getElementById("endDate").value
@@ -175,8 +185,5 @@ function addCalendarEvent(){
 
       setTimeout(()=>{
          console.log(data)
-      },1000)
+      },1000) 
 }
-
-
-

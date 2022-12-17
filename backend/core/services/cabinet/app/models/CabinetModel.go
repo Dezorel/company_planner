@@ -11,9 +11,10 @@ func GetCabinetsByCompany(companyName string) ([]Cabinet, error) {
 
 	defer db.Close()
 
-	query := "SELECT cab.id, cab.number, cab.size_id, cab.specifications " +
+	query := "SELECT cab.id, cab.number, cs.cabinet_size, cab.specifications " +
 		"FROM Cabinets cab " +
 		"INNER JOIN Companies comp ON cab.company_id = comp.id " +
+		"INNER JOIN Cabinet_size cs on cab.size_id = cs.id " +
 		"WHERE company_name = '" + companyName + "'"
 
 	selectResult, err := DBQueryMultiRow(db, query)
@@ -26,15 +27,15 @@ func GetCabinetsByCompany(companyName string) ([]Cabinet, error) {
 
 	for selectResult.Next() {
 
-		var id, sizeId int
+		var id, size int
 		var number, specification string
 
-		selectResult.Scan(&id, &number, &sizeId, &specification)
+		selectResult.Scan(&id, &number, &size, &specification)
 
 		answer = append(answer, Cabinet{
 			Id:       strconv.Itoa(id),
 			Number:   number,
-			Size:     strconv.Itoa(sizeId),
+			Size:     strconv.Itoa(size),
 			Property: specification,
 			Company:  companyName,
 		})

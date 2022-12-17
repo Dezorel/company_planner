@@ -63,7 +63,7 @@ func Response(w http.ResponseWriter, r *http.Request) {
 		response, _ = json.Marshal(schedules)
 
 	case "POST":
-		schedules, err := CreateSchedule(requestSchedule.StartDate, requestSchedule.EndDate, requestSchedule.CabinetId)
+		schedules, err := CreateSchedule(requestSchedule.CompanyName, requestSchedule.StartDate, requestSchedule.EndDate, requestSchedule.CabinetNumber)
 
 		if err != nil {
 			response, _ := json.Marshal(ErrorResponse{
